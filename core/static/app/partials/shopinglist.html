@@ -1,0 +1,64 @@
+<script type="text/ng-template" id="customTemplate.html">
+  <a class="general_style">
+      <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+  </a>
+</script>
+
+  <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                        <div class="row control-group">
+                            <div class="form-group col-xs-8 floating-label-form-group controls">
+                                <label>Product Title</label>
+                                <input ng-model="title"type="text" class="form-control" typeahead="product as product.title for product in groceries | filter:{title:$viewValue} | limitTo:8" placeholder="Product Title" id="name" ng-required="title" typeahead-template-url="customTemplate.html" data-validation-required-message="Please enter your name.">
+                                <!-- <p ng-show='!title' class="help-block text-danger">required</p> -->
+                            </div>
+                            <button style="float:right;" ng-disabled="!title" type="submit" class="btn btn-success btn-lg" ng-click="add()">+</button>
+                        </div>
+                        <br>
+                        <div id="success"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+      <section class='list_items'>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <table  style="width:100%;" class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th>N</th>
+                                  <th>Title</th>
+                                  <th>Items</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                                <tr ng-class="{purchased: item.purchased}" ng-click="purchasedItem(item)" ng-repeat="item in items">
+                                  <td>{{$index + 1}}</td>
+                                  <td>{{item.grocery.title}}</td>
+                                  <td><a ng-click="deleteItem(item)" style="text-decoration: none; color:red;">X<a><t/d>
+                                </tr>
+                            </table>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+  <hr>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                        <div class="row control-group">
+                            <button ng-disabled="!items" type="submit" class="btn btn-info btn-lg" ng-click="listArchive()">Send to Archive List</button>
+                        </div>
+                        
+                </div>
+            </div>
+        </div>
+   <hr>
+  
+
