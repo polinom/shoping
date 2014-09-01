@@ -1,4 +1,4 @@
-from rest_framework import serializers, response, status
+from rest_framework import serializers
 from .models import GroceryItem, List, ListItem
 
 
@@ -15,7 +15,6 @@ class ListSerializer(serializers.ModelSerializer):
         fields = ('id', 'crated', 'archived')
 
 
-# serializer for GET method
 class ListItemSerializerGET(serializers.ModelSerializer):
 
     # grocery = GroceryItemSerializer()

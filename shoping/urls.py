@@ -9,12 +9,17 @@ urlpatterns = patterns(
     '',
     url(r'^api/1.0/groceries/',
         GroceryItemsList.as_view(), name='grocery-list'),
+
     url(r'^api/1.0/itemslist/(?P<pk>\d+)/',
         ItemsList.as_view(), name='items-list-pk'),
     url(r'^api/1.0/itemslist/',
         ItemsList.as_view(), name='items-list'),
+
+    url(r'^api/1.0/lists/(?P<pk>\d+)/',
+        ListsList.as_view(), name='lists-list-pk'),
     url(r'^api/1.0/lists/',
         ListsList.as_view(), name='lists-list'),
+
     # Examples:
     url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
     # url(r'^shoping/', include('shoping.foo.urls')),

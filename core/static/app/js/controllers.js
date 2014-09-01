@@ -4,14 +4,17 @@
 
 angular.module('myApp.controllers', ['ui.bootstrap'])
 
-  .controller('ArchiveCtrl', ['$scope', function($scope) {
+  .controller('ArchiveCtrl', ['$scope', 'List', function($scope, List) {
+
+  	$scope.lists = List.query({archived: 1});
     
   }])
 
-  .controller('ShoppingCtrl', ['$scope', 'ItemList', 'Grocery', function($scope, Item, Grocery) {
+  .controller('ShoppingCtrl', ['$scope', 'ItemList', 'Grocery', 'List', function($scope, Item, Grocery, List) {
     $scope.items = Item.query();
 
     $scope.groceries = Grocery.query();
+    $scope.lists = List.query({archived: 0})
 
     $scope.updateGroceries = function(typed){
     	$scope.new_groceries = Grocery.query(typed).$promise;
@@ -21,7 +24,7 @@ angular.module('myApp.controllers', ['ui.bootstrap'])
     }
 
     $scope.add_grocery = function(gr) {
-        	var root_id = $scope.items[0].root_list;
+        	var root_id = $scope.lists[0].id;
         	var new_item = new Item({grocery: gr, items: 1, root_list: root_id});
         	var item_to_save = new Item({grocery: gr.id, items: 1, root_list: root_id});
         	item_to_save.$save().then(function(resp){
@@ -58,7 +61,15 @@ angular.module('myApp.controllers', ['ui.bootstrap'])
     }
 
     $scope.listArchive = function(){
-    	var root_id = $scope.items[0].root_list
+    	var root_id = $scope.lists[0].id;
+    	var lst = new List({id: root_id})
+    	lst.archived = true;
+    	lst.$update().then(function(){
+    		var new_list = new List({archived: false})
+    		new_list.$save().then(function(){
+    			$scope.items = Item.query();
+    		})
+    	})
     }
 
   }]);

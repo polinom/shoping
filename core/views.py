@@ -16,7 +16,10 @@ class GroceryItemsList(generics.ListCreateAPIView):
         return queryset.filter(title__icontains=q) if q else queryset
 
 
-class ListsList(generics.ListAPIView, generics.UpdateAPIView):
+class ListsList(
+        generics.ListCreateAPIView,
+        generics.RetrieveUpdateAPIView):
+
     model = List
     serializer_class = ListSerializer
     permission_classes = [
@@ -25,11 +28,15 @@ class ListsList(generics.ListAPIView, generics.UpdateAPIView):
 
     def get_queryset(self):
         queryset = super(ListsList, self).get_queryset()
-        a = self.request.GET.get('archived', True)
-        return queryset.filter(archived=a)
+        a = self.request.GET.get('archived', None)
+        return queryset.filter(archived=int(a)) if a is not None else queryset
 
 
-class ItemsList(generics.ListCreateAPIView, generics.DestroyAPIView, generics.UpdateAPIView):
+class ItemsList(
+        generics.ListCreateAPIView,
+        generics.DestroyAPIView,
+        generics.UpdateAPIView):
+
     model = ListItem
     # serializer_class = ListItemSerializer
     permission_classes = [
