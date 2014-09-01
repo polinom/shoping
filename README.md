@@ -1,6 +1,6 @@
 Setup
 -----
-To start a new project with Vagrant, run the following commands in project folder:
+To run this project with Vagrant, run the following commands in project folder:
 
     vagrant up
     vagrant ssh
