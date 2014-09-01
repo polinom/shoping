@@ -86,5 +86,6 @@ echo "workon $VIRTUALENV_NAME" >> /home/vagrant/.bashrc
 # Set execute permissions on manage.py, as they get lost if we build from a zip file
 chmod a+x $PROJECT_DIR/manage.py
 
+
 # Django project setup
-su - vagrant -c "source $VIRTUALENV_DIR/bin/activate && cd $PROJECT_DIR && ./manage.py syncdb --noinput && ./manage.py migrate"
+su - vagrant -c "source $VIRTUALENV_DIR/bin/activate && cd $PROJECT_DIR && ./manage.py syncdb --noinput && ./manage.py migrate && ./manage.py loaddata etc/fixtures/core.json"

@@ -1,16 +1,19 @@
 Setup
 -----
-Install Django 1.6 on your host machine. (Be sure to explicitly uninstall earlier versions first, or use a virtualenv -
-having earlier versions around seems to cause pre-1.4-style settings.py and urls.py files to be generated alongside the
-new ones.)
+To start a new project with Vagrant, run the following commands in project folder:
 
-To start a new project with Vagrant, run the following commands:
-
-    cd soping
     vagrant up
     vagrant ssh
       (then, within the SSH session:)
     ./manage.py runserver 0.0.0.0:8000
 
-This will make the app accessible on the host machine as http://localhost:8111/ . The codebase is located on the host
-machine, exported to the VM as a shared folder; code editing and Git operations will generally be done on the host.
+This will make the app accessible on the host machine as http://localhost:8111/
+
+
+
+If you dont want to use Vagrant to run this project, than look at the `etc/install/install.sh` for details about how to setupthe project.
+Most likely after setting Database credentials in shopin/settings/base.py you will need to do following:
+
+    ./manage.py syncdb
+    ./manage.py migrate
+    ./manage.py loaddata etc/fixtures/core.json"
